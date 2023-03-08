@@ -1,0 +1,44 @@
+*{
+  padding: 0;
+  margin: 0;
+}
+
+body{
+  position: relative;
+  overflow: hidden;
+}
+
+canvas{
+  width: 100vw;
+  height: 100vh;
+}
+
+#point{
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  background-color: orange;
+  border-radius: 9999px;
+  transform: none;
+  transition: transform .3s;
+}
+
+#point:after{
+  display: block;
+  content: '';
+  width: 20px;
+  height: 20px;
+  border-radius: 9999px;
+  transform: translate(-2px, -2px) scale(0.8);
+  border: solid orange 1px;
+  transition: transform .3s;
+}
+
+#point:hover{
+  transform: scale(1.2);
+  cursor: pointer;
+}
+
+#point:hover:after{
+  transform: translate(-1px, -1px) scale(1.3);
+}
