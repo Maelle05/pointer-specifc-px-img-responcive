@@ -60,6 +60,8 @@ function updatePosPointer(){
   // Load image
   const img = new Image();
   img.src = renderer.domElement.toDataURL("image/png");
+
+  // downloadURI(renderer.domElement.toDataURL("image/png"), 'test.png')
   
   img.onload = function() {
     // Create canvas element
@@ -82,8 +84,14 @@ function updatePosPointer(){
       const g = data[i + 1];
       const b = data[i + 2];
       if (isAroundValue(r, targetColor[0], 30) && isAroundValue(g, targetColor[1], 30) && isAroundValue(b, targetColor[2], 30)) {
-        const x = (i / 4) % canvas.width;
-        const y = Math.floor(i / 4 / canvas.width);
+        let x = (i / 4) % canvas.width;
+        let y = Math.floor(i / 4 / canvas.width);
+        // console.log(`Window size: (${window.innerWidth}, ${window.innerHeight})`);
+        // console.log(`Window rasio: (${window.innerWidth/window.innerHeight})`);
+        // console.log(`Img size: (${img.width}, ${img.height})`);
+        // console.log(`Img rasio: (${img.width/img.height})`);
+        x = x * (window.innerWidth/img.width)
+        y = y * (window.innerHeight/img.height)
         console.log(`Pixel position: (${x}, ${y})`);
         document.querySelector('div#point').style.left = `${x - 10}px`
         document.querySelector('div#point').style.top = `${y - 10}px`
@@ -91,4 +99,13 @@ function updatePosPointer(){
       }
     }
   };
+}
+
+const downloadURI = (uri, name) => {
+  const link = document.createElement("a");
+  link.download = name;
+  link.href = uri;
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
 }
