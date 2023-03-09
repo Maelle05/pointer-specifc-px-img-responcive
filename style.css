@@ -13,7 +13,7 @@ canvas{
   height: 100vh;
 }
 
-#point{
+div{
   position: absolute;
   width: 20px;
   height: 20px;
@@ -23,7 +23,7 @@ canvas{
   transition: transform .3s;
 }
 
-#point:after{
+div:after{
   display: block;
   content: '';
   width: 20px;
@@ -34,11 +34,11 @@ canvas{
   transition: transform .3s;
 }
 
-#point:hover{
+div:hover{
   transform: scale(1.2);
   cursor: pointer;
 }
 
-#point:hover:after{
+div:hover:after{
   transform: translate(-1px, -1px) scale(1.3);
 }
