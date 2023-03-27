@@ -1,6 +1,6 @@
 import * as THREE from 'three'
 
-export default class ImageFocusPoints {
+export default class PanoramaFocusPoints {
     private canvas: HTMLCanvasElement;
     private renderer: THREE.WebGLRenderer;
     private camera: THREE.OrthographicCamera;
