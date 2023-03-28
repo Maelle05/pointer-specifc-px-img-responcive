@@ -75,4 +75,9 @@ export default class HandArrow {
         var pi = Math.PI;
         return degrees * (pi/180);
     }
+
+    public changeTargetPoint(newTarget){
+        this.arrowContainer.style.top = `${newTarget.y}px`
+        this.arrowContainer.style.left = `${newTarget.x}px`
+    }
 }

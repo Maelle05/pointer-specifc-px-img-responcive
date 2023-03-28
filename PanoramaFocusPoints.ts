@@ -1,5 +1,6 @@
 import * as THREE from 'three'
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+import HandArrow from './HandArrow';
 
 export default class PanoramaFocusPoints {
     private canvas: HTMLCanvasElement;
@@ -10,17 +11,12 @@ export default class PanoramaFocusPoints {
     private sphere: THREE.Mesh;
     private rayCaster: THREE.Raycaster;
     private imgTex: THREE.Texture;
-    private targetColorRGB: Array<[number, number, number]>;
     private DOMElements: Array<{ position: THREE.Vector3, element: HTMLElement}>;
-    private nbTargets: number;
-    private step: number;
     private posPoints: Array<object>;
   
-    constructor(canvas: HTMLCanvasElement, imgURL: string, DOMElements: Array<{ position: THREE.Vector3, element: HTMLElement}> ) {
-      this.nbTargets = DOMElements.length
+    constructor(canvas: HTMLCanvasElement, imgURL: string, DOMElements: Array<{ position: THREE.Vector3, element: HTMLElement, arrow: HandArrow}> ) {
       this.DOMElements = DOMElements
-      
-      this.step = 0
+
       this.posPoints = []
   
       this.canvas = canvas
@@ -61,14 +57,14 @@ export default class PanoramaFocusPoints {
     }
 
     private tick(){
-      this.DOMElements.forEach((el) => this.updatePosPoint(el))
+      this.DOMElements.forEach((el, index) => this.updatePosPoint(el, index))
       
       this.controls.update();
       this.renderer.render(this.scene, this.camera)
       window.requestAnimationFrame(() => this.tick())
     }
 
-    private updatePosPoint(point){
+    private updatePosPoint(point, id){
       const screenPosition = point.position.clone()
       screenPosition.project(this.camera)
 
@@ -79,8 +75,14 @@ export default class PanoramaFocusPoints {
         point.element.style.display = 'block'
         point.element.style.left = `${translateX}px`
         point.element.style.top = `${translateY}px`
+        this.posPoints[id] = { x: translateX, y: translateY}
       } else {
         point.element.style.display = 'none'
+        this.posPoints[id] = { x: -100000, y: -100000}
+      }
+
+      if (point.arrow) {
+        point.arrow.changeTargetPoint(this.posPoints[id])
       }
     }
 

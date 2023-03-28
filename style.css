@@ -21,7 +21,7 @@ div.Pointer{
   height: 24px;
   background-color: orange;
   border-radius: 9999px;
-  transform: scale(1);
+  transform: translate(-12px, -12px) scale(1);
   transition-duration: .3s;
   transition-property: transform;
   cursor: pointer;
@@ -47,7 +47,7 @@ div.Pointer:before{
 }
 
 div.Pointer:hover{
-  transform: scale(1.2);
+  transform: translate(-12px, -12px) scale(1.2);
 }
 
 @keyframes ripple {

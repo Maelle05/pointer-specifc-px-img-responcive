@@ -1,4 +1,5 @@
 import * as THREE from 'three'
+import HandArrow from './HandArrow';
 
 export default class ImageFocusPoints {
     private canvas: HTMLCanvasElement;
@@ -9,12 +10,12 @@ export default class ImageFocusPoints {
     private texAspect: number;
     private imgTex: THREE.Texture;
     private targetColorRGB: Array<[number, number, number]>;
-    private DOMElements: Array<HTMLElement>;
+    private DOMElements: Array<{ element: HTMLElement, arrow: HandArrow}>;
     private nbTargets: number;
     private step: number;
     private posPoints: Array<object>;
   
-    constructor(canvas: HTMLCanvasElement, imgURL: string, targetColorRGB: Array<[number, number, number]>, DOMElements: Array<HTMLElement> ) {
+    constructor(canvas: HTMLCanvasElement, imgURL: string, targetColorRGB: Array<[number, number, number]>, DOMElements: Array<{ element: HTMLElement, arrow: HandArrow}> ) {
       this.targetColorRGB = targetColorRGB
       this.nbTargets = DOMElements.length
       this.DOMElements = DOMElements
@@ -74,7 +75,7 @@ export default class ImageFocusPoints {
   
     private updatePosPointer() {
       this.DOMElements.forEach(domPointers => {
-        domPointers.style.display = 'none'
+        domPointers.element.style.display = 'none'
       })
 
       this.step = 0
@@ -108,13 +109,13 @@ export default class ImageFocusPoints {
             if(this.posPoints.length === 0 || !this.isAroundValue(this.posPoints[this.posPoints.length-1].x, x, 15) || !this.isAroundValue(this.posPoints[this.posPoints.length-1].y, y, 15)){
               this.posPoints.push({ x: x, y: y})
 
-              this.DOMElements[this.step].style.display = 'block'
-              this.DOMElements[this.step].style.left = `${x - 10}px`
-              this.DOMElements[this.step].style.top = `${y - 10}px`
+              this.DOMElements[this.step].element.style.display = 'block'
+              this.DOMElements[this.step].element.style.left = `${x}px`
+              this.DOMElements[this.step].element.style.top = `${y}px`
   
               this.step++
               if (this.step === this.nbTargets) {
-                console.log('Pixels positions', this.getPosPoints())
+                // console.log('Pixels positions', this.getPosPoints())
                 break;
               }
             }
