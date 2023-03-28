@@ -15,6 +15,8 @@ canvas{
 
 div.Pointer{
   position: absolute;
+  top: 0;
+  left: 0;
   width: 24px;
   height: 24px;
   background-color: orange;
@@ -33,7 +35,6 @@ div.Pointer:after{
   border: solid orange 2px;
   animation: ripple 2s cubic-bezier(0, 0.2, 0.8, 1) infinite;
   animation-delay: -1s;
-  pointer-events: none;
 }
 
 div.Pointer:before{
@@ -43,7 +44,6 @@ div.Pointer:before{
   border-radius: 9999px;
   border: solid orange 2px;
   animation: ripple 2s cubic-bezier(0.25, 0.1, 0.25, 1.0) infinite;
-  pointer-events: none;
 }
 
 div.Pointer:hover{
